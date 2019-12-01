@@ -1,6 +1,6 @@
 const solver = require("./solver");
 
-describe("problem 1", () => {
+describe("part 1", () => {
   it("For a mass of 12, divide by 3 and round down to get 4, then subtract 2 to get 2", () => {
     expect(solver(12)).toBe(2);
   });
