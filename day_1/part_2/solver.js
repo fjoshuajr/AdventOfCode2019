@@ -1,5 +1,5 @@
-function solver(initialValue) {
-  let fuel = initialValue;
+function solver(initialMass) {
+  let fuel = initialMass;
   let totalFuel = 0;
   while (fuel > 0) {
     fuel = calculateFuel(fuel);
@@ -12,10 +12,7 @@ function solver(initialValue) {
 }
 
 function calculateFuel(mass) {
-  let fuel = mass / 3;
-  fuel = Math.floor(fuel);
-  fuel = fuel - 2;
-  return fuel;
+  return Math.floor(mass / 3) - 2;
 }
 
 module.exports = solver;

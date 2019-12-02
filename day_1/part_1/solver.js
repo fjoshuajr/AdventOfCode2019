@@ -1,8 +1,5 @@
-function solver(value) {
-  let result = value / 3;
-  result = Math.floor(result);
-  result = result - 2;
-  return result;
+function solver(mass) {
+  return Math.floor(mass / 3) - 2;
 }
 
 module.exports = solver;
