@@ -2,20 +2,18 @@ const OPCODE_SUM = 1;
 const OPCODE_MULTIPLICATION = 2;
 const OPCODE_HALT = 99;
 
-function solver(program) {
-  const initialProgram = [...program];
-
+function solver(initialProgram, output = 19690720) {
   for (let noun = 0; noun <= 99; noun++) {
     for (let verb = 0; verb <= 99; verb++) {
+      let program = [...initialProgram];
+
       program[1] = noun;
       program[2] = verb;
 
-      let program = runner(program);
-      if (program[0] === 19690720) {
+      program = runner(program);
+      if (program[0] === output) {
         return [noun, verb, 100 * noun + verb];
       }
-
-      program = [...initialProgram];
     }
   }
 }
@@ -37,4 +35,4 @@ function peek4Elements(initialPosition, array) {
   return array.slice(initialPosition, initialPosition + 4);
 }
 
-module.exports = { solver, peek4Elements };
+module.exports = solver;
