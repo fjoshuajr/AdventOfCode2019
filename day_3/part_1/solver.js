@@ -8,12 +8,12 @@ function solver(wire1, wire2) {
     return wire2Points.has(point);
   });
 
-  const distance = getClosestIntersection(allIntersections, centralPort);
+  const distance = getClosestDistance(allIntersections, centralPort);
 
   return distance;
 }
 
-function getClosestIntersection(allIntersections, centralPort) {
+function getClosestDistance(allIntersections, centralPort) {
   let closestDistance = null;
   allIntersections.forEach(point => {
     let [x, y] = point.split(",");
@@ -26,7 +26,7 @@ function getClosestIntersection(allIntersections, centralPort) {
 }
 
 function calculateDistance(x, y, originX, originY) {
-  return Math.abs(x - originX) + (y - originY);
+  return Math.abs((x - originX) + (y - originY));
 }
 
 function getPoints(centralPort, wire) {
