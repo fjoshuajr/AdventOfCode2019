@@ -1,11 +1,11 @@
 function solver(minValue, maxValue) {
-  const differentPasswords = [];
+  const countPasswords = 0;
   for (let password = minValue; password <= maxValue; password++) {
     if (isValid(password)) {
-      differentPasswords.push(password);
+      countPasswords++;
     }
   }
-  return differentPasswords.length;
+  return countPasswords;
 }
 
 function isValid(password) {
@@ -27,13 +27,13 @@ function isValid(password) {
       passwordArray[3] <= passwordArray[4] &&
       passwordArray[4] <= passwordArray[5]
     ) {
-      let thereAreUniqueAdjacents = false;
+      let adjacentsComeInPairs = true;
       Object.keys(counts).forEach(number => {
-        if (counts[number] == 2) {
-          thereAreUniqueAdjacents = true;
+        if (counts[number] % 2 != 0) {
+          adjacentsComeInPairs = false;
         }
       });
-      return thereAreUniqueAdjacents;
+      return adjacentsComeInPairs;
     }
   }
 
