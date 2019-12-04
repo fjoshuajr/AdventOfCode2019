@@ -1,11 +1,11 @@
 function solver(minValue, maxValue) {
-  const differentPasswords = [];
+  const countPasswords = 0;
   for (let password = minValue; password <= maxValue; password++) {
     if (isValid(password)) {
-      differentPasswords.push(password);
+      countPasswords++;
     }
   }
-  return differentPasswords.length;
+  return countPasswords;
 }
 
 function isValid(password) {
