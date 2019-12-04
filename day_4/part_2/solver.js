@@ -1,5 +1,5 @@
 function solver(minValue, maxValue) {
-  const countPasswords = 0;
+  let countPasswords = 0;
   for (let password = minValue; password <= maxValue; password++) {
     if (isValid(password)) {
       countPasswords++;
@@ -14,11 +14,6 @@ function isValid(password) {
     .split("")
     .map(value => parseInt(value));
 
-  let counts = passwordArray.reduce((counter, number) => {
-    counter[number] = ++counter[number] || 1;
-    return counter;
-  }, {});
-
   if (passwordArray.length === 6) {
     if (
       passwordArray[0] <= passwordArray[1] &&
@@ -27,6 +22,11 @@ function isValid(password) {
       passwordArray[3] <= passwordArray[4] &&
       passwordArray[4] <= passwordArray[5]
     ) {
+      let counts = passwordArray.reduce((counter, number) => {
+        counter[number] = ++counter[number] || 1;
+        return counter;
+      }, {});
+
       let adjacentsComeInPairs = true;
       Object.keys(counts).forEach(number => {
         if (counts[number] % 2 != 0) {
