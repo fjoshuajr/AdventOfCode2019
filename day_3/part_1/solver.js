@@ -47,8 +47,8 @@ function getPoints(centralPort, wire) {
 
       point = `${xPointer},${yPointer}`;
 
-      // to exclude origin and same wire crossings, ie. no duplicates
-      if (point !== "0,0" || !points.has(point)) {
+      // exclude origin and same wire crossings, ie. no duplicates
+      if (point !== "0,0" && !points.has(point)) {
         points.add(point);
       }
     }
