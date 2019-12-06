@@ -11,7 +11,6 @@ const OPCODE_HALT = 99;
 function solver(input, program) {
   let instructionSize;
   for (let i = 0; program[i] != OPCODE_HALT; i += instructionSize) {
-    if (typeof program[i] === "undefined") break;
     let { opcode, modes } = decodeModesAndOpcode(program[i]);
 
     if (
