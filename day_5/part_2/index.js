@@ -4,7 +4,7 @@ const { solver } = require("./solver");
 function main() {
   const inputs = JSON.parse(`[${fs.readFileSync("./input.txt").toString()}]`);
 
-  solver(1, inputs);
+  solver(5, inputs);
 }
 
 main();
