@@ -1,6 +1,6 @@
-const OPCODE_SUM = 1;
-const OPCODE_MULTIPLICATION = 2;
-const OPCODE_HALT = 99;
+const O_SUM = 1;
+const O_MULTIPLICATION = 2;
+const O_HALT = 99;
 
 function solver(initialProgram, output = 19690720) {
   for (let noun = 0; noun <= 99; noun++) {
@@ -19,12 +19,12 @@ function solver(initialProgram, output = 19690720) {
 }
 
 function runner(program) {
-  for (let i = 0; program[i] != OPCODE_HALT; i += 4) {
+  for (let i = 0; program[i] != O_HALT; i += 4) {
     const instruction = peek4Elements(i, program);
     const [opcode, inputPos1, inputPos2, outputPos] = instruction;
-    if (opcode === OPCODE_SUM) {
+    if (opcode === O_SUM) {
       program[outputPos] = program[inputPos1] + program[inputPos2];
-    } else if (opcode === OPCODE_MULTIPLICATION) {
+    } else if (opcode === O_MULTIPLICATION) {
       program[outputPos] = program[inputPos1] * program[inputPos2];
     }
   }

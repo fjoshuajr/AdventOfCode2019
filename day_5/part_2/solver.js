@@ -1,25 +1,23 @@
-const OPCODE_SUM = 1;
-const OPCODE_MULTIPLICATION = 2;
-const OPCODE_INPUT = 3;
-const OPCODE_OUTPUT = 4;
-const OPCODE_JUMP_IF_TRUE = 5;
-const OPCODE_JUMP_IF_FALSE = 6;
-const OPCODE_LESS_THAN = 7;
-const OPCODE_EQUALS = 8;
-const OPCODE_HALT = 99;
+const O_SUM = 1;
+const O_MULTIPLICATION = 2;
+const O_INPUT = 3;
+const O_OUTPUT = 4;
+const O_JUMP_IF_TRUE = 5;
+const O_JUMP_IF_FALSE = 6;
+const O_LESS_THAN = 7;
+const O_EQUALS = 8;
+const O_HALT = 99;
 
 function solver(input, program) {
   let instructionSize;
-  for (let i = 0; program[i] != OPCODE_HALT; i += instructionSize) {
+  for (let i = 0; program[i] != O_HALT; i += instructionSize) {
     let { opcode, modes } = decodeModesAndOpcode(program[i]);
 
     if (
-      opcode == OPCODE_SUM ||
-      opcode == OPCODE_MULTIPLICATION ||
-      opcode == OPCODE_JUMP_IF_TRUE ||
-      opcode == OPCODE_JUMP_IF_FALSE ||
-      opcode == OPCODE_LESS_THAN ||
-      opcode == OPCODE_EQUALS
+      opcode == O_SUM ||
+      opcode == O_MULTIPLICATION ||
+      opcode == O_LESS_THAN ||
+      opcode == O_EQUALS
     ) {
       instructionSize = 4;
       let instructionParams = peekNParams(i, program, instructionSize);
@@ -28,45 +26,50 @@ function solver(input, program) {
       if (modes[0] == 0) param1 = program[param1];
       if (modes[1] == 0) param2 = program[param2];
 
-      if (opcode == OPCODE_SUM) {
+      if (opcode == O_SUM) {
         program[param3] = param1 + param2;
-      } else if (opcode == OPCODE_MULTIPLICATION) {
+      } else if (opcode == O_MULTIPLICATION) {
         program[param3] = param1 * param2;
-      } else if (opcode == OPCODE_JUMP_IF_TRUE) {
-        if (param1 != 0) {
-          i = param2;
-          instructionSize = 0;
-        } else {
-          instructionSize = 3;
-        }
-      } else if (opcode == OPCODE_JUMP_IF_FALSE) {
-        if (param1 == 0) {
-          i = param2;
-          instructionSize = 0;
-        } else {
-          instructionSize = 3;
-        }
-      } else if (opcode == OPCODE_LESS_THAN) {
+      } else if (opcode == O_LESS_THAN) {
         if (param1 < param2) {
           program[param3] = 1;
         } else {
           program[param3] = 0;
         }
-      } else if (opcode == OPCODE_EQUALS) {
+      } else if (opcode == O_EQUALS) {
         if (param1 == param2) {
           program[param3] = 1;
         } else {
           program[param3] = 0;
         }
       }
-    } else if (opcode == OPCODE_INPUT || opcode == OPCODE_OUTPUT) {
+    } else if (opcode == O_JUMP_IF_TRUE || opcode == O_JUMP_IF_FALSE) {
+      instructionSize = 3;
+      let instructionParams = peekNParams(i, program, instructionSize);
+      let [param1, param2, param3] = instructionParams;
+
+      if (modes[0] == 0) param1 = program[param1];
+      if (modes[1] == 0) param2 = program[param2];
+
+      if (opcode == O_JUMP_IF_TRUE) {
+        if (param1 != 0) {
+          i = param2;
+          instructionSize = 0;
+        }
+      } else if (opcode == O_JUMP_IF_FALSE) {
+        if (param1 == 0) {
+          i = param2;
+          instructionSize = 0;
+        }
+      }
+    } else if (opcode == O_INPUT || opcode == O_OUTPUT) {
       instructionSize = 2;
       let instructionParams = peekNParams(i, program, instructionSize);
       let [param] = instructionParams;
 
-      if (opcode == OPCODE_INPUT) {
+      if (opcode == O_INPUT) {
         program[param] = input;
-      } else if (opcode == OPCODE_OUTPUT) {
+      } else if (opcode == O_OUTPUT) {
         if (modes[0] == 0) param = program[param];
 
         console.log(param);
